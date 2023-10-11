@@ -1,1 +1,1 @@
-Algorithm for the segmentation of prostate-specific membrane antigen labeling in ciruculating tumor cells of metastatic patients
+Algorithm for the segmentation of prostate-specific membrane antigen labeling in ciruculating tumor cells of metastatic patients (the patient blood samples analyzed were from two clinical studies with IRB protocols 0804009740 and 0707009283 at Cornell Medicine)

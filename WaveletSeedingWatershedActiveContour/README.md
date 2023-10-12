@@ -1,4 +1,4 @@
-Algorithm for the segmentation of prostate-specific membrane antigen labeling in ciruculating tumor cells of metastatic patients designed by Alexandre Matov, PhD and implemented in Matlab by Shayan Modiri
+Algorithm for the segmentation of prostate-specific membrane antigen labeling in ciruculating tumor cells of metastatic patients (designed by Alexandre Matov, PhD and implemented in Matlab by Shayan Modiri)
 
 The initial image segmentation is accomplished by stationary wavelet transform, which identifies bright pixel clusters in noisy images; the seeding step. Active contour, next, identifies precisely the edges of the image features based on the seeds. Watershed transformation of the seeding step image is overlaid, with reversed intensities, on the active contour image. Logical conjunction / “and” of the active contour image and the watershed image identifies the bright areas and their exact borders.  
 

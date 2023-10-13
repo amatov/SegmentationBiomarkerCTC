@@ -1,0 +1,133 @@
+
+Houghtool - The Software Package for efficiency measuring and visualization
+            of the HT and its variants for line detection
+============================================================================
+
+  Authors: Petri Hirvonen, Jouni.Ikonen (Jouni.Ikonen@lut.fi), 
+           Pekka Kultanen, Heikki Kalviainen (Heikki.Kalviainen@lut.fi) 
+
+	   Comments about 
+           Houghtool software to:  Jouni.Ikonen@lut.fi
+                                   http://www.lut.fi/~jikonen
+           RHT algorithms to:      Heikki.Kalviainen@.lut.fi
+                                   http://www/lut.fi/~kalviai
+           Other HT algorithms to: Original authors of the methods
+
+  Address: Lappeenranta University of Technology
+           Department of Information Technology
+           Laboratory of Information Processing
+           P.O. Box 20
+           FIN-53851 Lappeenranta
+           Finland
+           Telephone: +358-53-62111
+           Telefax:   +358-53-6212899
+   
+Please refer to the following article when applying the Houghtool:
+
+           Kalviainen, H., Hirvonen, P., Oja, E., ``Houghtool-a Software 
+           Package for Hough Transform Calculation,'' Proc. of the 9th 
+           Scandinavian Conference on Image Analysis, Uppsala, Sweden, 
+           June 1995, pp. 841-848.
+
+Some of the articles mentioned in this file are available by the anonymous ftp at 
+lut.fi in /itlab/rht/reports or in http://www.lut.fi/dep/tite/XHoughtool/xhoughtool.html.
+
+For more details about algorithms implemented in the package see:
+
+           Kalviainen, H., Hirvonen, P., Xu, L., and Oja, E.,
+           ``Probabilistic and Non-probabilistic Hough Transforms:
+           Overview and Comparisons,'' 
+           Image and Vision Computing, vol. 13, no. 4, May 1995, pp. 239-252. 
+
+The Randomized Hough Transform (RHT) algorithm has been invented by Lei Xu, Erkki Oja, 
+and Pekka Kultanen, and developed further by Heikki Kalviainen and Petri Hirvonen.
+For further information, please notice the following papers: 
+
+           Xu, L., Oja, E. and Kultanen, P., ``A New Curve Detection Method:
+           Randomized Hough Transform (RHT),'' Pattern Recognition Letters,
+           vol. 11, no. 5, 1990, pp. 331-338.
+ 
+           Kultanen, P., Xu, L., Oja, E. ``Randomized Hough Transform (RHT),''
+           Proc. of the 10th International Conference on Pattern Recognition,
+           Atlantic City, USA, June 16-21, 1990, pp. 631-635.
+
+           Xu, L. and Oja, E., ``Randomized Hough Transform (RHT): Basic
+           Mechanisms, Algorithms, and Computational Complexities,'' 
+           Image Understanding, vol. 57, no. 2, 1993, pp. 131-154.
+
+           Kalviainen, H., Hirvonen, P., Xu, L., and Oja, E.,
+	   ``Comparisons of Probabilistic and Non-probabilistic 
+	   Hough Transforms,''
+           Proceedings of 3rd European Conference on Computer 
+           Vision ECCV'94, Stockholm, Sweden, May 1994, pp. 351-360.
+
+           Kalviainen, H., Hirvonen, P., Xu, L., and Oja, E.,
+           ``Probabilistic and Non-probabilistic Hough Transforms:
+           Overview and Comparisons,'' 
+           Image and Vision Computing, vol. 13, no. 4, May 1995, pp. 239-252. 
+
+Programs: Programs can be compiled using "make". 
+          Makefile usage: make [programname|all|clean|help]
+                   programname is one of the names listed below, e.g. make rht_line. 
+                   Without programname or with the option "all" all programs are compiled. 
+                   The option "clean" deletes core and all object files. Help is 
+                   available with the option "help".
+
+           User interface:       
+                xhoughtool    Graphical user interface for the Houghtool
+           Non-probabilistic HTs:
+ 		aht_line      Adaptive HT (AHT) 
+		cht_line      Combinatorial HT (CHT)
+  		cfht_line     Curve Fitting HT (CFHT)
+  		sht_line      Standard HT (SHT)
+ 
+           Probabilistic HTs:
+  		dcht_line     Dynamic Combinatorial HT (DCHT) 
+  		probht_line   Probabilistic HT by Kiryati et al. (ProbHT)
+  		rht_line      Randomized HT (RHT)
+ 		drht_line     - Dynamic RHT (DRHT)
+   		rwrht_line    - Random Window RHT (RWRHT) 
+  		wrht_line     - Window RHT (WRHT)
+                  - including Connective RHT (CRHT)
+
+           Programs provide more information about themselves with -h and -u
+           options, e.g., rht_line -u for usage and rht_line -h for 
+           more details about the options.
+
+  Remarks: The filter programs can be compiled in Sun-4 machines and even in
+           HP9000 machines - if corresponding changes are made in Makefile. 
+           
+           The graphical user interface, named XHoughtool, needs Xlib and
+           XView Toolkit libraries for being built up. Unfortunately 
+           you may find some problems while using Solaris, instead of SunOS. 
+           Please notice that if you compile the codes of the filter programs 
+           or the XHoughtool in a SunOS machine but execute them in a Solaris machine, 
+           the proper behavior of library functions is not guaranteed.
+
+           The help window of the XHoughtool works properly only if the help file 
+           xhoughtool.help exists in the same directory where the XHoughtool 
+           is started, or an environment variable XHTOOLHELPDIR is set 
+           to define the directory where xhoughtool.help exists.
+
+           The package contains the manual page xhoughtool.l. Move the file
+           to a suitable man directory and set MANPATH correspondingly. 
+
+   Notice: Images (to examine using HT) must be binary edge pictures, having
+           a background signed by zeros (0) and edges by values between 1 and
+           255. Available formats are PGM, CVL, VIS (Visilog), SKE and RAW.
+           Both last ones have no header in image file. In SKE format each
+           pixel is stored in space sized of INT (integer, 4 bytes). In RAW
+           format (like all the other formats) the pixel is stored in space
+           of byte.
+
+           Images should be 256x256 sized at maximum. To handle bigger images,
+           you should make some changes to Makefile. See Makefile for further
+           information.
+
+COPYRIGHT: This program package is copyrighted in sense that it may be used 
+           for scientific purposes. THE PACKAGE as a whole, or parts thereof, 
+           CANNOT BE INCLUDED or USED IN ANY COMMERCIAL APPLICATION WITHOUT 
+           WRITTEN PERMISSION GRANTED BY ITS PRODUCERS. No programs contained 
+           in this package may be copied for commercial distribution. 
+           However, when used for scientific purposes, we wish that this 
+           package will be referred in corresponding papers and reports.

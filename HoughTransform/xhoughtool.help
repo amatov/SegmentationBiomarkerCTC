@@ -1,0 +1,841 @@
+<TOPIC>INTRODUCTION 
+Welcome to the XHoughtool
+<LB>
+=========================
+<LB>
+<LB>
+This is XHoughtool Release 1.1
+<LB>
+<LB>
+and is available by ftp://lut.fi/itlab/rht/houghtool
+(see also the XHoughtool homepage http://www.lut.fi/dep/tite/XHoughtool/xhoughtool.html)
+<LB>
+<LB>
+XHoughtool - The Software Package for efficiency measuring and visualization
+of the Hough Transform and its variants for line detection. Methods
+visualized in the XHoughtool package can also be used without the graphical
+interface through command line commands.
+<LB>
+<LB>
+Please refer to the following article when applying the Houghtool:
+<LB>
+<LB>
+Kalviainen, H., Hirvonen, P., Oja, E., Houghtool-a Software
+Package for Hough Transform Calculation, Proc. of the 9th
+Scandinavian Conference on Image Analysis, Uppsala, Sweden,
+June 1995, pp. 841-848.
+<LB>
+<LB>
+The paper is available by ftp://lut.fi/itlab/rht/reports, or
+http://www.lut.fi/dep/tite/XHoughtool/xhoughtool.html.
+<LB>
+<LB>
+Hopefully, you find this software useful.
+<LB>
+<LB>
+<TOPIC>AUTHORS AND COMMENTS 
+Authors of the Houghtool: 
+<LB>
+Petri Hirvonen, Jouni Ikonen, Pekka Kultanen, and Heikki Kalviainen 
+<LB>
+<LB>
+   Lappeenranta University of Technology
+<LB>
+   Department of Information Technology
+<LB>
+   Laboratory of Information Processing
+<LB>
+   P.O. Box 20
+<LB>
+   FIN-53851 Lappeenranta, Finland
+<LB>
+   Telephone: +358-53-62111
+<LB>
+   Telefax:   +358-53-6212899
+<LB>
+<LB>
+Comments about       
+<LB>
+Houghtool software to:  Jouni.Ikonen@lut.fi
+<LB>
+                        http://www.lut.fi/~jikonen
+<LB>
+RHT algorithms to:      Heikki.Kalviainen@.lut.fi
+<LB>
+                        http://www/lut.fi/~kalviai
+<LB>
+Other HT algorithms to: Original authors of the methods 
+<LB>
+                        (See the help section "FURTHER 
+<LB>
+                        INFORMATION ABOUT THE ALGORITHMS")
+
+<TOPIC>COPYRIGHT
+This program package is copyrighted in sense that it may be used 
+for scientific purposes. THE PACKAGE as a whole, or parts thereof, 
+CAN NOT BE INCLUDED OR USED IN ANY COMMERCIAL APPLICATION WITHOUT 
+WRITTEN PERMISSION GRANTED BY ITS PRODUCERS. No programs contained 
+in this package may be copied for commercial distribution. 
+However, when used for scientific purposes, we wish that this 
+package will be refereed in corresponding papers and reports.
+<LB>
+<LB>
+Please refer to the following article when applying the Houghtool:
+<LB>
+<LB>
+Kalviainen, H., Hirvonen, P., Oja, E., Houghtool-a Software
+Package for Hough Transform Calculation, Proc. of the 9th
+Scandinavian Conference on Image Analysis, Uppsala, Sweden,
+June 1995, pp. 841-848.
+<LB>
+<LB>
+The paper is available by ftp://lut.fi/itlab/rht/reports, or
+http://www.lut.fi/dep/tite/XHoughtool/xhoughtool.html.
+
+<TOPIC>VERSION
+   XHoughtool Release 1.1
+<LB>
+   XHoughtool Help Version 1.4
+
+<TOPIC>COMMAND LINE COMMANDS 
+Ten Hough Transform (HT) algorithms are implemented in the Houghtool software package. 
+Programs implemented are available both as separate command line commands (i.e. Unix-like 
+filter programs) and as 
+menu buttons in the XHoughtool. The command line commands are as follows:
+<LB>
+<LB> 
+Non-probabilistic HTs:
+<LB>
+  aht_line      Adaptive HT (AHT)
+<LB>
+  cht_line      Combinatorial HT (CHT)
+<LB>
+  cfht_line     Curve Fitting HT (CFHT)
+<LB>
+  sht_line      Standard HT (SHT)
+<LB>
+<LB> 
+Probabilistic HTs:
+<LB>
+  dcht_line     Dynamic Combinatorial HT (DCHT)
+<LB> 
+  probht_line   Probabilistic HT by Kiryati et al. (ProbHT)
+<LB>
+  rht_line      Randomized HT (RHT)
+<LB>
+  drht_line     - Dynamic RHT (DRHT)
+<LB> 
+  rwrht_line    - Random Window RHT (RWRHT) 
+<LB>
+  wrht_line     - Window RHT (WRHT)
+<LB>
+                  - including Connective RHT (CRHT)  
+<LB>
+<LB>
+Programs provide more information about themselves with -h and -u
+options, e.g., rht_line -u for usage and rht_line -h for 
+more details about the options. 
+<LB>
+<LB>
+Programs can be compiled using "make".
+<LB>
+<LB>
+Makefile usage: make [programname|all|clean|help]
+<LB>
+<LB>
+   programname is one of the names listed above, e.g. make rht_line.
+Without programname or with the option "all" all programs are compiled.
+The option "clean" deletes core and all object files. Help is
+available with the option "help".
+
+<TOPIC>IMPORTANT TO KNOW
+Important remarks to notice. See subtitles about 
+environmental and image constraints.
+<PUSH>
+<TOPIC>Environment constraints and variables
+The filter programs can be compiled in Sun-4 machines and even in
+HP9000 machines - if corresponding changes are made in Makefile.
+<LB>
+<LB>           
+The graphical user interface, named the XHoughtool, needs Xlib and
+XView Toolkit libraries for being built up. Unfortunately
+you may find some problems while using Solaris, instead of SunOS.
+Please notice that if you compile the codes of the filter programs or the XHoughtool
+in a SunOS machine but execute them in a Solaris machine, the proper
+behavior of library functions is not guaranteed.
+<LB>
+<LB>
+The help window of the XHoughtool works properly only if the help file
+xhoughtool.help exists in the same directory where the XHoughtool
+is started, or an environment variable XHTOOLHELPDIR is set
+to define the directory where xhoughtool.help exists.
+<LB>
+<LB>
+The package contains the manual page xhoughtool.l. Move the file
+to a suitable man directory and set MANPATH correspondingly.
+<TOPIC>Image types
+Images used by HT algorithms must be binary edge pictures, having
+a background signed by zeros (0) and edges by values between 1 and
+255. Available formats are PGM, CVL, VIS (Visilog), SKE and RAW.
+Two last ones have no header in an image file. In SKE format each
+pixel is stored in space sized of INT (integer, 4 bytes). In RAW
+format (like all the other formats) the pixel is stored in space
+of byte.
+
+<TOPIC>Image size
+Images should be 256x256 sized at maximum. To handle larger images,
+you should make some changes to Makefile. See Makefile for further
+information.
+<POP>
+
+<TOPIC>FURTHER INFORMATION ABOUT THE ALGORITHMS
+Here relevant articles are enumerated.
+<LB>
+<LB>
+Some of the articles mentioned here are available by 
+<LB>
+ ftp://lut.fi/itlab/rht/reports or 
+<LB>
+ http://www.lut.fi/dep/tite/XHoughtool/xhoughtool.html.
+<LB>
+<LB>
+Note that information about parameters of the implemented methods is
+presented in the help section "USER INTERFACE".
+
+<PUSH>
+<TOPIC>Overview and comparisons articles 
+Illingworth, J., and Kittler, J., A Survey of the Hough Transform,
+CVGIP,vol. 44, pp. 87-116, 1988.
+<LB>
+<LB>
+Leavers, V.F.,
+Survey-Which Hough Transform?,
+CVGIP: Image Understanding, vol. 58, no. 2,
+pp. 250-264, 1993.
+<LB>
+<LB>
+Kalviainen, H., Hirvonen, P., Xu, L., and Oja, E.,
+Comparisons of Probabilistic and Non-probabilistic Hough Transforms,
+Proceedings of 3rd European Conference on Computer
+Vision ECCV'94, Stockholm, Sweden, May 1994, pp. 351-360.
+<LB>
+<LB>
+Kalviainen, H., Hirvonen, P., Xu, L., and Oja, E.,
+Probabilistic and Non-probabilistic Hough Transforms:
+Overview and Comparisons,
+Image and Vision Computing, vol. 13, no. 4, May 1995, pp. 239-252.
+
+<TOPIC>Randomized Hough Transform (RHT)
+Randomized Hough Transform (RHT) algorithms 
+<LB>
+<LB>
+   RHT, DRHT, RWRHT, WRHT, CRHT
+<LB>
+<LB>
+The RHT algorithm has been invented by Lei Xu, Erkki Oja, and Pekka Kultanen,
+and developed further by Heikki Kalviainen and Petri Hirvonen.
+<LB>
+<LB>
+Kalviainen, H., Hirvonen, P., Xu, L., and Oja, E.,
+Probabilistic and Non-probabilistic Hough Transforms:
+Overview and Comparisons,
+Image and Vision Computing, vol. 13, no. 4, May 1995, pp. 239-252.
+<LB>
+<LB>
+Xu, L., Oja, E. and Kultanen, P., A New Curve Detection Method:
+Randomized Hough Transform (RHT), Pattern Recognition Letters,
+vol. 11, no. 5, 1990, pp. 331-338.
+<LB>
+<LB>
+Kultanen, P., Xu, L., Oja, E., Randomized Hough Transform (RHT),
+Proc. of the 10th International Conference on Pattern Recognition,
+Atlantic City, USA, June 16-21, 1990, pp. 631-635.
+<LB> 
+<LB>
+Xu, L. and Oja, E., Randomized Hough Transform (RHT): Basic
+Mechanisms, Algorithms, and Computational Complexities,
+CVGIP: Image Understanding, vol. 57, no. 2, 1993, pp. 131-154.
+<LB> 
+<LB>
+Kalviainen, H., Hirvonen, P., Xu, L., and Oja, E.,
+Comparisons of Probabilistic and Non-probabilistic 
+Hough Transforms,
+Proceedings of 3rd European Conference on Computer 
+Vision ECCV'94, Stockholm, Sweden, May 1994, pp. 351-360.
+<LB>
+<LB>
+Kalviainen, H., Hirvonen, P., Oja, E., Houghtool-a Software 
+Package for Hough Transform Calculation, Proc. of the 9th 
+Scandinavian Conference on Image Analysis, Uppsala, Sweden, 
+June 1995, pp. 841-848.
+
+<TOPIC>Other implemented algorithms
+Adaptive HT (AHT):
+<LB>
+<LB>
+Illingworth, J. and Kittler J., The Adaptive Hough Transform,
+IEEE Transactions on Pattern Analysis and Machine Intelligence, vol. 9,
+no. 5, 1987, pp. 690-698.
+<LB>
+<LB>
+Princen, J., Yuen, H.K., Illingworth, J. and Kittler, J., Properties of
+the Adaptive Hough Transform, Proceedings of 6th Scandinavian
+Conference on Image Analysis, Oulu, Finland, June 19-22, 1989, 
+pp. 613-620. 
+<LB>
+<LB>
+Combinatorial HT (CHT):
+<LB>
+<LB>
+Ben-Tzvi, D. and Sandler, M.B., A Combinatorial Hough Transform,
+Pattern Recognition Letters, vol. 11, no. 3, 1990, pp. 167-174.
+<LB>
+<LB>
+Curve Fitting HT (CFHT):
+<LB>
+<LB>
+Liang, P., A New Transform for Curve Detection, Proceedings of Third
+International Conference on Computer Vision, Osaka, Japan, December
+4-7, 1990, pp. 748-751.
+<LB>
+<LB>
+Liang, P., A New and Efficient Transform for Curve Detection,
+J. of Robotic Systems, vol. 8, no. 6, pp. 841-847, 1991.
+<LB>
+<LB>
+Dynamic Combinatorial HT (DCHT):
+<LB>
+<LB>
+Leavers, V.F., Ben-Tzvi, D., and Sandler, M.B.,
+A Dynamic Combinatorial Hough Transform for Straight Lines and Circles,
+Proc. 5th Alvey Vision Conf., Reading, UK, Sept. 1989, pp. 163-168.
+<LB>
+<LB>
+Ben-Tzvi, D., Leavers, V.F., and Sandler, M.B., A Dynamic Combinatorial
+Hough Transform, Proceedings of the 5th International Conference on
+Image Analysis and Processing, Positano, Italy, September 20-22,
+1989, pp. 152-159.
+<LB> 
+<LB>
+Probabilistic HT by Kiryati et al. (ProbHT):
+<LB>
+<LB>
+Kiryati, N., Eldar, Y., and Bruckstein, A.M, A Probabilistic Hough
+Transform, EE PUB No. 746, Department of Electrical Engineering,
+Technion Israel Institute of Technology, Haifa, Israel, February 1990.
+<LB>
+<LB>
+Kiryati, N., Eldar, Y., and Bruckstein, A.M.,
+A Probabilistic Hough Transform, Pattern Recognition, 
+vol. 24, no, 4., pp. 303-316, 1991.
+<POP>
+<LB> 
+<LB>
+Standard HT (SHT):
+<LB>
+<LB>
+Duda, R.O. and Hart, P.E., Use of the Hough Transform To Detect Lines
+and Curves in Pictures, Communications of the ACM, vol. 15, no. 1,
+1972, pp. 11-15.
+<LB>
+<LB>
+Risse, T., Hough Transform for Line Recognition: Complexity of
+Evidence Accumulation and Cluster Detection, Computer Vision,
+Graphics, and Image Processing, vol. 46, no. 3, 1989, pp. 327-345.
+
+<POP>
+
+<TOPIC>XHOUGHTOOL COMMAND LINE OPTIONS
+xhoughtool [-f Edge_pic] [-I] [-G] [-h] [-u]
+<LB>
+<LB>
+-f Edge_pic   The file name of a test edge image.
+<LB>
+              The format of the image file can be PGM, CVL,
+<LB>
+              SKE, VIS (Visilog), or RAW.
+<LB>
+-I            Inverse canvas colors.
+<LB>
+-G            Show grid.
+<LB>
+-h            Print this help.
+<LB>
+-u            Usage.
+<LB>
+<LB>
+For example, xhoughtool -f house_edge.pgm -G
+<TOPIC>USAGE EXAMPLE
+All the images you want to process must be edge images.
+<LB>
+<LB>
+1. Set the path in "Image file path" to point a directory from where you want to
+load images. You can add the name of a processed image to this path if you want.
+<LB>
+<LB>
+2. Select a method to use from 'Non-probabil.' or 'Probabilistic' methods (use
+the right mouse button to see menu).
+The selection of the method opens you a window, where you have to define the name of
+an image to process in "Edge file", if you did not do so in "Image file path",
+e.g, house_edge.pgm . Now you can change parameters.
+<LB>
+<LB>
+3. Select 'Start' from control panel.
+<LB>
+
+<TOPIC>USER INTERFACE
+The XHoughtool window has three parts.
+<LB>
+The upper right part of the window contains a control panel that gives access
+to hierarchical menu system.
+<LB>
+The bottom right part of the window is a graphics subwindow composed of six
+regions for showing images.
+<LB>
+The left-hand side part of the window contains three separate areas for
+visualizing the accumulator space.
+<PUSH>
+<TOPIC>Image file path
+This is where you define directory where to find input edge pictures. One edge
+picture can be defined here, ready for HT methods selected later.
+
+<TOPIC>Help
+Opens this help window.
+
+<TOPIC>Common options for all the methods
+Edge file:
+<LB>
+   Defines the binary edge image that are used in the HT calculation. Default "Image file path".
+<LB>
+<LB>
+Parameters save file:
+<LB>
+   This is where you define, where to save parameters,
+which will be found during the next run. NOTE that it will overwrite the previous run
+with the same name.
+<LB>
+<LB>
+Vertical shrink:
+<LB>
+   Shrink images vertically by 1/3. Default off.
+<LB>
+<LB>
+Randomly added noise:
+<LB>
+   To add noise to the source picture. Default no noise.
+<LB>
+<LB>
+Number of maxima:
+<LB>
+   Defines how many lines are searched at maximum.
+<LB>
+<LB>
+Minimum line segment length:
+<LB>
+   Lines shorter than defined here are left out of consideration.
+<LB>
+<LB>
+Line scanning width:
+<LB>
+   Pixels found in the width of the scanning area are considered to belong to a line.
+<LB>
+<LB>
+Maximum gap between pixels in line segment:
+<LB>
+   If the gap between pixels is larger than
+defined here, pixels are not considered to belong to the same line.
+
+<TOPIC>Non-probabil.
+Setting the parameters of the non-probabilistic Hough Transform algorithms.
+<PUSH>
+<TOPIC>SHT
+Minimum score accepted for a accumulator max.:
+<LB>
+   When points are accumulated into
+the accumulator space, this is the minimum number of hits in a cell to consider
+a cell as a maximum which may represent line parameters.
+<LB>
+<LB>
+Accumulator rho quantization:
+<LB>
+   Accumulator array size (max quantization of (rho,theta) is 256 x 256). 
+<LB>
+<LB>
+Accumulator theta quantization:
+<LB>
+   Accumulator array size (max quantization of (rho,theta) is 256 x 256).
+
+<TOPIC>CFHT
+Window size:
+<LB>
+   The size of the window where a line is fitted. The size is (2*Msize+1) x (2*Msize+1).
+If Msize = 6 (default), there is a 13 x 13 window. 
+<LB>
+<LB>
+Threshold for amount of windowed points:
+<LB>
+   Minimum number of points in the window. If there are less points in the window,
+the line fitting is not performed.
+<LB>
+<LB>
+Tolerance for fitting error:
+<LB>
+   Maximum fitting error accepted.
+<LB>
+<LB>
+Accumulator threshold:
+<LB>
+   Determines how many hits an accumulator cell must have to be considered as a maximum
+whose parameters may represent a line.
+<LB>
+<LB>
+Tolerance to existing accumulator cells:
+<LB>
+   Tolerance of a new candidate cell to near accumulator cells when updating the accumulator.
+A new candidate cell is merged into an old one,
+if it satisfies the tolerance; otherwise, a new cell is created. The larger 
+the tolerance, the less new cells are created. Tolerance is the Euclidean distance
+between positions of cells.
+<LB>
+<LB>
+Weight for old score:
+<LB>
+   Value for weighting accumulator cell position. Old position is
+weighted by (1- Gamma) and the new one by Gamma. If Gamma is 0.0, the old position is
+weighted by it's score, and the new one by one.
+<LB>
+<LB>
+Do not remove edge points: 
+<LB>
+   If set edge point are not removed from image after a found line. Default off. 
+<LB>
+
+<TOPIC>AHT
+Accumulator range selection:
+<LB>
+   1 for horizontal lines (0-45 or 135-180 degrees), 2 for vertical lines (45-135 degrees).
+<LB>
+<LB>
+Accumulator slope quantization:
+<LB>
+   The slope quantization in the accumulator array (slope x intercept).
+<LB>
+<LB>
+Accumulator intercept quantization:
+<LB>
+   The intercept quantization in the accumulator array (slope x intercept).
+<LB>
+<LB>
+Accumulator binarizing level:
+<LB>
+   Level to which the accumulator is binarized with respect to the maximum value. If
+level is 0.9, a cell whose value is greater or equal to 0.9 * maximum value 
+gets value 1; otherwise 0.
+<LB>
+<LB>
+Relative slope accuracy:
+<LB>
+   The relative accuracy of the parameter slope. This is with respect to quantization, i.e.
+the iteration of the accumulator is repeated until the difference between the smallest and
+largest value of the slope is less than quantization * slope accuracy. 
+<LB>
+<LB>
+Relative intercept accuracy:
+<LB>
+   The relative accuracy of the parameter intercept. This is with respect to quantization, i.e.
+the iteration of the accumulator is repeated until the difference between the smallest and
+largest value of the intercept is less than quantization * intercept accuracy.
+<TOPIC>CHT
+Minimum score accepted for an accumulator max:
+<LB>
+   The threshold for the accumulator.
+<LB>
+<LB>
+Number of segments in image:
+<LB>
+   The number of segments in one dimension, i.e., the image is divided into Segments^2.
+<LB>
+<LB>
+Number of overlapped pixels in segments:
+<LB>
+   Defines how much segments are allowed to overlap.     
+<LB>
+<LB>
+Accumulator rho quantization:
+<LB>
+   Accumulator array size (max quantization of (rho,theta) is 256 x 256).
+<LB>
+<LB>
+Accumulator theta quantization:
+<LB>
+   Accumulator array size (max quantization of (rho,theta) is 256 x 256).
+<LB>
+<LB>
+Local maxima search mask size:
+<LB>
+   The size of the local maxima search mask. The real size is (2*MaskSize+1) x (2*MaskSize+1).
+<POP>
+
+<TOPIC>Probabilistic
+Setting the parameters of the probabilistic Hough Transform algorithms.
+<PUSH>
+<TOPIC>RHT
+Min. dist. for point pair:
+<LB>
+   Points selected at random must be at least this far from each other.
+<LB>
+<LB>
+Max. dist. for point pair:
+<LB>
+  Points selected at random can be at most this far from each other.
+<LB>
+<LB>
+Accumulator accuracy:
+<LB>
+   The resolution of the accumulator. The accumulator accuracy 0.01 means the accuracy of 
+two decimals, e.g., 2.5623 = 2.56.
+<LB>
+<LB>
+Accumulator threshold:
+<LB>
+   Determines how many hits an accumulator cell must have to be considered as a maximum 
+whose parameters may represent a line. 
+<LB>
+<LB>
+<TOPIC>DRHT
+Min. dist. for point pair:
+<LB>
+   Points selected at random must be at least this far from each other.
+<LB>
+<LB>
+Max. dist. for point pair:
+<LB>
+   Points selected at random can be at most this far from each other.
+<LB>
+<LB>
+Accumulator accuracy:
+<LB>
+   The resolution of the accumulator. The accumulator accuracy 0.01 means the accuracy of 
+two decimals, e.g., 2.5623 = 2.56.
+<LB>
+<LB>
+2nd Accumulator accuracy:
+<LB>
+   The resolution of the accumulator. The accumulator accuracy 0.01 means the accuracy of
+two decimals, e.g., 2.5623 = 2.56 (for second iteration).
+<LB>
+<LB>
+Accumulator threshold:
+<LB>
+   Determines how many hits an accumulator cell must have to be considered as a maximum
+whose parameters may represent a line.  
+<LB>
+<LB>
+2nd Accumulator threshold:
+<LB>
+   Determines how many hits an accumulator cell must have to be considered as a maximum
+whose parameters may represent a line (for second iteration).
+<LB>
+<LB>
+Block width for 2nd iteration:
+<LB>
+   The width of the block (2*BlockWidth+1).
+<LB>
+<LB>
+Max. variation of "a" in degrees:
+<LB>
+   Maximum variation of a slope.
+<LB>
+<LB>
+<TOPIC>WRHT (CRHT)
+Accumulator accuracy:
+<LB>
+   The resolution of the accumulator. The accumulator accuracy 0.01 means the accuracy of
+two decimals, e.g., 2.5623 = 2.56.
+<LB>
+<LB>
+Accumulator threshold:
+<LB> 
+   Determines how many hits an accumulator cell must have to be considered as a maximum
+whose parameters may represent a line.
+<LB>
+<LB>
+Window size:
+<LB>
+   The size of the window where a line is fitted. The size is (2*size+1) x (2*size+1).
+<LB>
+<LB>
+Threshold for min. num. of windowed points:
+<LB>
+   Minimum number of points in the window. If the number of points is less, 
+   no fitting is performed. 
+<LB>
+<LB>
+Tolerance for fitting error:
+<LB>
+   Maximum fitting error accepted.
+<LB>
+<LB>
+Do not remove accumulator after line found:
+<LB>
+   If set, accumulator is not removed after line is found.
+<LB>
+<LB>
+Use only center point connected points in window (CRHT):
+<LB>
+   If set, the method is CRHT. Only the points which are connected to the center point of the window
+are used.
+<LB>
+<LB>
+Do the connective point search as sectored:
+<LB>
+   Do the connective component check for the window as sectored.
+<LB>
+
+<TOPIC>RWRHT
+Min. dist. for point pair:
+<LB>
+   Points selected at random must be at least this far from each other.
+<LB>
+<LB>
+Max. dist. for point pair:
+<LB>
+   Points selected at random can be at most this far from each other.
+<LB>
+<LB>
+Accumulator accuracy:
+<LB>
+   The resolution of the accumulator. The accumulator accuracy 0.01 means the accuracy of
+two decimals, e.g., 2.5623 = 2.56.
+<LB>
+<LB>
+Accumulator threshold:
+<LB>
+   Determines how many hits an accumulator cell must have to be considered as a maximum
+whose parameters may represent a line.
+<LB>
+<LB>
+Min. window size:
+<LB>
+   Lower limit (MinWinSize*2+1) for the size of the window. The size of the window is selected at
+random between the lower and upper limit.
+<LB>
+<LB>
+Max. window size:
+<LB>
+   Upper limit (MaxWinSize*2+1) for the size of the window. The size of the window is selected at
+random between the lower and upper limit.
+<LB>
+<LB>
+Accumulate parameters in a win max 20T times:
+<LB>
+   Defines if accumulations from the same window are limited (on/off). Is on,
+the maximum number of accumulations allowed is 20 * accumulator threshold.
+
+<TOPIC>ProbHT
+Minimum accepted score for a accumulator max:
+<LB>
+   Determines how many hits an accumulator cell must have to be considered as a maximum
+whose parameters may represent a line.
+<LB>
+<LB>
+Accumulator rho quantization:
+<LB>
+   Accumulator array size (max quantization of (rho,theta) is 256 x 256).
+<LB>
+<LB>
+Accumulator theta quantization:
+<LB>
+   Accumulator array size (max quantization of (rho,theta) is 256 x 256).
+<LB>
+<LB>
+Sampling level:
+<LB>
+   Defines the percentage of edge points which are selected to the HT calculation randomly.
+20 % means that the fifth of all the edge points is chosen at random and
+all the other points are simply ignored in the HT calculation.
+<TOPIC>DCHT
+Accumulator threshold:
+<LB>
+   Determines how many hits an accumulator cell must have to be considered as a maximum
+whose parameters may represent a line.
+<LB>
+<LB>
+Accumulator theta quantization:
+<LB>
+   The size of the histogram vector into where theta values are accumulated.
+Maximum is 256 theta values in the vector.
+<POP>
+
+<TOPIC>Start
+Starts processing. The method has to be selected before this.
+<TOPIC>Pause
+Pauses processing until user pushes 'Continue'.
+<TOPIC>Stop
+Stops processing and shows results which are got so far.
+<TOPIC>Wait states
+Wait states lever is made for demonstration purposes. The more wait states you add,
+the slower the process goes.
+
+<TOPIC>Props
+Menus to change the properties of the XHoughtool.
+<PUSH>
+<TOPIC>Background:white/black
+Select background color (black or white).
+<TOPIC>Grid: enable/disable
+Make the grid visible or invisible.
+<TOPIC>Save image
+Output image name: <filename> 
+<LB>
+   Defines the name of an image to be saved, e.g. my_image
+<LB>
+<LB>
+Output image format: (CVL, PGM, SKE, BIN)
+<LB>
+   Defines format with what image will be saved and will append suffix
+   accordingly., e.g. my_image.pgm.
+<LB>
+<LB>
+Save Image: (Result Image, Line Candidates)
+<LB>
+   Defines which image to save. Choice is between the final result image and
+the line candidate image.
+<LB>
+<LB>
+Invert colors in saved image: (on, off)
+<LB>
+   We decided to add this option because you might want 
+to use images in your papers and not kill your laser
+printer by printing a lot of black color!
+<POP>
+
+<TOPIC>Show
+Options to show pictures.
+<PUSH>
+<TOPIC>Show in normal way
+Show images without vertical shrinking.
+<TOPIC>Show pic as shrunken
+Shows the image vertically shrunken by 1/3.
+<POP>
+
+<TOPIC>Clear
+Options to clear selected areas.
+<PUSH>
+<TOPIC>Clear selected place
+Clears selected place from canvas. Place is selected by selecting Place:
+X.Y from interface.
+<TOPIC>Clear graph canvas
+Clears all six places on canvas.
+<TOPIC>Clear All
+Clears graphical canvas and accumulator representation areas (left hand side
+of canvas).
+<POP>
+
+<TOPIC>Place
+Indicates the current active area of a graphic subwindow and can be used to
+select active place on canvas.
+<TOPIC>Quit
+Exits the XHoughtool and closes windows which are still open.
+<POP>
+
+

@@ -1,5 +1,7 @@
 MATLAB Compiler
 
+Prepared by Nik Mihaylov 
+
 1. Prerequisites for Deployment 
 
 . Verify the MATLAB Compiler Runtime (MCR) is installed and ensure you    
@@ -10,7 +12,7 @@ MATLAB Compiler
   <matlabroot>*\toolbox\compiler\deploy\win64\MCRInstaller.exe
 
 For more information about the MCR and the MCR Installer, see 
-ìWorking With the MCRî in the MATLAB Compiler Userís Guide.    
+‚ÄúWorking With the MCR‚Äù in the MATLAB Compiler User‚Äôs Guide.    
 
 
 NOTE: You will need administrator rights to run MCRInstaller. 
@@ -30,7 +32,7 @@ Files to package for Standalone
 
 For information on deployment terminology, go to 
 http://www.mathworks.com/help. Select your product and see 
-the Glossary in the Userís Guide.
+the Glossary in the User‚Äôs Guide.
 
 
 * NOTE: <matlabroot> is the directory where MATLAB is installed on the target machine.

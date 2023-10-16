@@ -1,8 +1,8 @@
 #include "mex.h"
 
-% A Trou Wavelet Transform "Image Processing and Data Analysis: The Multiscale Approach (2000)"
+// A Trou Wavelet Transform "Image Processing and Data Analysis: The Multiscale Approach (2000)"
 	
-# Nik Mihaylov (2014)
+// Nik Mihaylov (2014)
 
 #include <Eigen>
 #include <vector>

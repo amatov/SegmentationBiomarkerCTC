@@ -1,5 +1,6 @@
 #include "mex.h"
 
+# Nik Mihaylov (2014)
 
 #include <Eigen>
 #include <vector>

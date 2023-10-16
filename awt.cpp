@@ -1,6 +1,6 @@
 #include "mex.h"
 
-% A Trou Wavelet Transform. J.-L. Starck, F. Murtagh, A. Bijaoui, "Image Processing and Data Analysis: The Multiscale Approach (2000)"
+% A Trou Wavelet Transform "Image Processing and Data Analysis: The Multiscale Approach (2000)"
 	
 # Nik Mihaylov (2014)
 

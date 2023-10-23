@@ -1,6 +1,6 @@
 ### Algorithm for the segmentation of prostate-specific membrane antigen labeling in ciruculating tumor cells of metastatic patients I designed and partially implemented (see also folder Wavelet Seeding Watershed Active Contour)
 
-#### The patient blood samples analyzed were from clinical studies with IRB protocols 0804009740 and 0707009283 at Cornell Medicine
+### The patient blood samples analyzed were from clinical studies with IRB protocols 0804009740 and 0707009283 at Cornell Medicine
 
 #### See examples of image processing of whole slides in folder Coverslip
 

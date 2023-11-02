@@ -1,4 +1,4 @@
-### I wrote a proposal, which was funded by the NIH, and did the initial Matlab script writing to analyze data and demonstrate a proof of principle 
+### I wrote a proposal, which was funded by the National Institutes of Health, and did the initial Matlab script writing to analyze data and demonstrate a proof of principle 
 
 #### Matlab code for the analysis of cropped images of coverslip imaged at high resolution was written primarily by Shayan Modiri of the University of Central Florida
 

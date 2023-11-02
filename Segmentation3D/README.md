@@ -1,4 +1,4 @@
-Center for Research in Computer Vision (Mubarak Shah, PhD)
+### Center for Research in Computer Vision (Mubarak Shah, PhD)
 
 
 

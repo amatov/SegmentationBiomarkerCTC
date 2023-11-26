@@ -8,4 +8,4 @@
 
 #### Presentations and funding applications on this project are available here: http://dx.doi.org/10.13140/RG.2.2.15239.37286
 
-#### Applications to drug discovery in glioblastoma of these algorithms, I have presented here (see also the real-time analysis video of cells treated with araC above): https://researchgate.net/publication/374192982_Motion_Analysis_of_the_Nuclear_Epigenetic_Histone_Mark_H3K9me3_in_Live_Cells_Treated_with_ara-C_AT9283_and_Resminostat_for_Drug_Discovery_in_Glioblastoma_2017
+#### Applications to drug discovery in glioblastoma of these algorithms, I have presented here (see also the real-time analysis video of cells treated with ara-C above): http://dx.doi.org/10.13140/RG.2.2.11459.58409/2

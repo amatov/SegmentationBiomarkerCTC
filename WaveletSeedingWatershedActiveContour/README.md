@@ -1,4 +1,4 @@
-### I designed the whole algorithm for the segmentation of prostate-specific membrane antigen labeling in ciruculating tumor cells of metastatic patients and wrote code in Matlab to demonstrate a proof of princip of this analysis 
+### I designed the whole algorithm for the segmentation of prostate-specific membrane antigen labeling in ciruculating tumor cells of metastatic patients and wrote code in Matlab to demonstrate a proof of principle of this analysis 
 
 ### The final Matlab implementation was done by Shayan Modiri (the group of Mubarak Shah)
 

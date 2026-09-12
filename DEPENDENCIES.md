@@ -4,7 +4,7 @@
 
 Requires the **MATLAB Compiler Runtime (MCR) version 7.16**. Neither the
 MCR nor `MCRInstaller.exe` is included in this repository -- see
-`Coverslip/low_resolution/readme.txt` for the original deployment notes.
+`Coverslip/low_resolution/README.md` for the original deployment notes.
 Download the matching MCR installer from MathWorks before running
 `find_ctc.exe`.
 

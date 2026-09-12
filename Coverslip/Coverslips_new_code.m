@@ -2,6 +2,7 @@ clear all
 %[filename2,dir2] = uigetfile('*.xls' , 'Chose the excel file that you want to re-generate');
 %filename=strcat(dir2,filename2);
 %coordinates=xlsread(filename);
+% EDIT: hardcoded path below is specific to the original author's local machine -- update before running
 coordinates1=xlsread('C:\Users\HRISTOV\Desktop\Pt.9283-920_Cover1\Guang 1-90 ctc positions - coverslips.xlsx');
 all_coordinates=[];
 all_info=[];
@@ -13,14 +14,17 @@ for i=24:24
     coordinates=[];
     ctc1_location=[];
     info=[];
+% EDIT: hardcoded path below is specific to the original author's local machine -- update before running
 DAPI_in_image= imread(strcat('C:\Users\HRISTOV\Desktop\Pt.9283-920_Cover1\Pt.9283-920_Cover1_z4m',sprintf('%03d',i),'c4.tif'),'tiff');
 
+% EDIT: hardcoded path below is specific to the original author's local machine -- update before running
 CTC_in_image= imread(strcat('C:\Users\HRISTOV\Desktop\Pt.9283-920_Cover1\Pt.9283-920_Cover1_z4m',sprintf('%03d',i),'c2.tif'),'tiff');
 
 %TUB_in_image= imread('C:\Users\HRISTOV\Desktop\Pt.9283-920_Cover1\Pt.9283-920_Cover1_z4m096c3.tif','tiff');
  
 %AR_in_image= imread('C:\Users\HRISTOV\Desktop\ChipA0303-0001.tif_Files\ChipA0303-0001_p000002t00000001z002c03.tif','tiff');
 
+% EDIT: hardcoded path below is specific to the original author's local machine -- update before running
 L_in_image= imread(strcat('C:\Users\HRISTOV\Desktop\Pt.9283-920_Cover1\Pt.9283-920_Cover1_z4m',sprintf('%03d',i),'c5.tif'),'tiff');
 
 wavelet_image=double(DAPI_in_image);

@@ -1,8 +1,4 @@
-clear all
-close all
-clc
-
-%function WaveletSeeding_ActiveContour_v1()
+function WaveletSeeding_ActiveContour_v2(y1,y2,x1,x2)
 %SHOWALLPOSITIVESAMPLES Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -23,7 +19,7 @@ safetyFactor = 0;
 MaxPSMAaxisInMicro = 30;
 MaxDAPIaxisInMicro = 25;
 minPSMAaxisInMicro = 5;
-minDAPIaxisInMicro = 3;
+minDAPIaxisInMicro = 5;
 
 PSMA.maxAxisLength = MaxPSMAaxisInMicro*(1+safetyFactor) / eachPixelLengthInMicro;
 DAPI.maxAxisLength = MaxDAPIaxisInMicro*(1+safetyFactor) / eachPixelLengthInMicro;
@@ -45,23 +41,24 @@ histJump = 1;
 % CD45.im = imread(fullfile(inputPath,'9740-101Ficoll02whole_c3_ORG.tif'));
 
 inputPath = '';
+% EDIT: hardcoded path below is specific to the original author's local machine -- update before running
 inputPath = 'E:\MATLAB\CTC\Alex Dropbox\10xNewFilter\Flash Camera\10x';
 
 %% Reads the files and crops them
 if GUI
     [FileName,PathName,FilterIndex] = uigetfile({'*.tif';'*.jpg';'*.tiff';'*.*'},'Select PSMA image',inputPath);
     PSMA.origIm = double(imread(fullfile(PathName, FileName)));
-    %PSMA.origIm = PSMA.origIm(2000:2300,2000:2300);
+    PSMA.origIm = PSMA.origIm(y1:y2,x1:x2);
     PSMA.im = PSMA.origIm;
     
     [FileName,PathName,FilterIndex] = uigetfile({'*.tif';'*.jpg';'*.tiff';'*.*'},'Select DAPI image',PathName);
     DAPI.origIm = double(imread(fullfile(PathName, FileName)));
-    %DAPI.origIm = DAPI.origIm(2000:2300,2000:2300);
+    DAPI.origIm = DAPI.origIm(y1:y2,x1:x2);
     DAPI.im = DAPI.origIm;
     
     [FileName,PathName,FilterIndex] = uigetfile({'*.tif';'*.jpg';'*.tiff';'*.*'},'Select CD45 image',PathName);
     CD45.origIm = double(imread(fullfile(PathName, FileName)));
-    %CD45.origIm = CD45.origIm(2000:2300,2000:2300);
+    CD45.origIm = CD45.origIm(y1:y2,x1:x2);
     CD45.im = CD45.origIm;
 end
 
@@ -84,91 +81,46 @@ end
 %
 % [x,y] = readAnnotation(fullfile(inputPath,'Manual Coords9740-103Ficoll02whole_with_new-filter.xlsx'));
 
-%% Fixing the Brightness
-Gfilt = fspecial('gaussian',250,35);
+%% Fixing the Brightness (The sigma is huge, you can reduce it)
+Gfilt = fspecial('gaussian',300,55);
 
-PSMA.brightness = imfilter(PSMA.im,Gfilt,'replicate','same');
-DAPI.brightness = imfilter(DAPI.im,Gfilt,'replicate','same');
-CD45.brightness = imfilter(CD45.im,Gfilt,'replicate','same');
+PSMA.brightness = imfilter(PSMA.im,Gfilt);
+DAPI.brightness = imfilter(DAPI.im,Gfilt);
+CD45.brightness = imfilter(CD45.im,Gfilt);
 
 PSMA.im = 100*PSMA.im ./ max(PSMA.brightness,1);
 DAPI.im = 100*DAPI.im ./ max(DAPI.brightness,1);
 CD45.im = 100*CD45.im ./ max(CD45.brightness,1);
 
 %% Calculate the wavelet parallel
-waveletSteps = 1003;
-waveletBorder = 50;
-partsI = ceil(size(PSMA.im,1)/waveletSteps);
-partsJ = ceil(size(PSMA.im,2)/waveletSteps);
-PSMAwavelet = cell(partsI,partsJ);
-DAPIwavelet = PSMAwavelet;
-CD45wavelet = PSMAwavelet;
-PSMAim = PSMA.im;
-DAPIim = DAPI.im;
-CD45im = CD45.im;
-parfor i = 1:partsI
-    for j = 1:partsJ
-        [~,PSMAwavelet{i,j}] = spotDetector(double(PSMAim(max(1,waveletSteps*(i-1)-waveletBorder+1):min(waveletSteps*i+waveletBorder,size(PSMAim,1)),max(1,waveletSteps*(j-1)-waveletBorder+1):min(waveletSteps*j+waveletBorder,size(PSMAim,2)))));
-        PSMAwavelet{i,j} = (PSMAwavelet{i,j}>0);
-        if i>1 && i<partsI
-            PSMAwavelet{i,j} = PSMAwavelet{i,j}(waveletBorder+1:end-waveletBorder,:);
-        elseif i>1
-            PSMAwavelet{i,j} = PSMAwavelet{i,j}(waveletBorder+1:end,:);
-        elseif i<partsI
-            PSMAwavelet{i,j} = PSMAwavelet{i,j}(1:end-waveletBorder,:);
-        end
-        if j>1 && j<partsJ
-            PSMAwavelet{i,j} = PSMAwavelet{i,j}(:,waveletBorder+1:end-waveletBorder);
-        elseif j>1
-            PSMAwavelet{i,j} = PSMAwavelet{i,j}(:,waveletBorder+1:end);
-        elseif j<partsJ
-            PSMAwavelet{i,j} = PSMAwavelet{i,j}(:,1:end-waveletBorder);
-        end
-        [~,DAPIwavelet{i,j}] = spotDetector(double(DAPIim(max(1,waveletSteps*(i-1)-waveletBorder+1):min(waveletSteps*i+waveletBorder,size(DAPIim,1)),max(1,waveletSteps*(j-1)-waveletBorder+1):min(waveletSteps*j+waveletBorder,size(DAPIim,2)))));
-        DAPIwavelet{i,j} = (DAPIwavelet{i,j}>0);
-        if i>1 && i<partsI
-            DAPIwavelet{i,j} = DAPIwavelet{i,j}(waveletBorder+1:end-waveletBorder,:);
-        elseif i>1
-            DAPIwavelet{i,j} = DAPIwavelet{i,j}(waveletBorder+1:end,:);
-        elseif i<partsI
-            DAPIwavelet{i,j} = DAPIwavelet{i,j}(1:end-waveletBorder,:);
-        end
-        if j>1 && j<partsJ
-            DAPIwavelet{i,j} = DAPIwavelet{i,j}(:,waveletBorder+1:end-waveletBorder);
-        elseif j>1
-            DAPIwavelet{i,j} = DAPIwavelet{i,j}(:,waveletBorder+1:end);
-        elseif j<partsJ
-            DAPIwavelet{i,j} = DAPIwavelet{i,j}(:,1:end-waveletBorder);
-        end
-% % %         [~,CD45wavelet{i,j}] = spotDetector(double(CD45im(max(1,waveletSteps*(i-1)-waveletBorder+1):min(waveletSteps*i+waveletBorder,size(CD45im,1)),max(1,waveletSteps*(j-1)-waveletBorder+1):min(waveletSteps*j+waveletBorder,size(CD45im,2)))));
-% % %         CD45wavelet{i,j} = (CD45wavelet{i,j}>0);
-% % %         if i>1 && i<partsI
-% % %             CD45wavelet{i,j} = CD45wavelet{i,j}(waveletBorder+1:end-waveletBorder,:);
-% % %         elseif i>1
-% % %             CD45wavelet{i,j} = CD45wavelet{i,j}(waveletBorder+1:end,:);
-% % %         elseif i<partsI
-% % %             CD45wavelet{i,j} = CD45wavelet{i,j}(1:end-waveletBorder,:);
-% % %         end
-% % %         if j>1 && j<partsJ
-% % %             CD45wavelet{i,j} = CD45wavelet{i,j}(:,waveletBorder+1:end-waveletBorder);
-% % %         elseif j>1
-% % %             CD45wavelet{i,j} = CD45wavelet{i,j}(:,waveletBorder+1:end);
-% % %         elseif j<partsJ
-% % %             CD45wavelet{i,j} = CD45wavelet{i,j}(:,1:end-waveletBorder);
-% % %         end
+parfor i = 1:3
+    if i == 1
+        [~, PSMAwavelet{i}] = spotDetector(double(PSMA.im));
+    elseif i == 2
+        [~, DAPIwavelet{i}] = spotDetector(double(DAPI.im));
+        
+    elseif i == 3
+        [~,CD45wavelet{i}] = spotDetector(double(CD45.im));
     end
 end
 
-PSMA.wavelet = cell2mat(PSMAwavelet);
-DAPI.wavelet = cell2mat(DAPIwavelet);
-% % % CD45.wavelet = cell2mat(CD45wavelet);
-
+PSMA.wavelet = PSMAwavelet{1};
+DAPI.wavelet = DAPIwavelet{2};
+CD45.wavelet = CD45wavelet{3};
 clear PSMAwavelet;
 clear DAPIwavelet;
-% % % clear CD45wavelet;
+clear CD45wavelet;
 
 
 %% Active Contour and Watershed
+PSMA.activeCont = activecontour(PSMA.im,PSMA.wavelet);
+PSMA.waveletWatershed = watershed(1-(PSMA.wavelet>0));
+PSMA.borderIm = PSMA.im - min(PSMA.im(:));
+PSMA.borderIm = PSMA.borderIm / max(PSMA.im(:));
+PSMA.borderIm = 1 - PSMA.borderIm;
+PSMA.borderIm(PSMA.waveletWatershed == 0) = 1;
+PSMA.activeContSeparate = activecontour(PSMA.borderIm, PSMA.wavelet);
+PSMA.segments = (PSMA.activeContSeparate>0) & (PSMA.activeCont>0);
 
 DAPI.activeCont = activecontour(DAPI.im,DAPI.wavelet);
 DAPI.waveletWatershed = watershed(1-(DAPI.wavelet>0));
@@ -179,81 +131,32 @@ DAPI.borderIm(DAPI.waveletWatershed == 0) = 1;
 DAPI.activeContSeparate = activecontour(DAPI.borderIm, DAPI.wavelet);
 DAPI.segments = (DAPI.activeContSeparate>0) & (DAPI.activeCont>0);
 
-PSMA.processedIm = PSMA.im;
-sorted = sort(PSMA.processedIm(:));
-p = round(997*length(PSMA.processedIm(:))/1000);
-PSMA.processedIm(PSMA.processedIm>sorted(p)) = sorted(p);
-p = round(3*length(PSMA.processedIm(:))/1000);
-PSMA.processedIm(PSMA.processedIm<sorted(p)) = sorted(p);
-PSMA.processedIm(PSMA.processedIm<0) = 0;
+CD45.activeCont = activecontour(CD45.im,CD45.wavelet);
+CD45.waveletWatershed = watershed(1-(CD45.wavelet>0));
+CD45.borderIm = CD45.im - min(CD45.im(:));
+CD45.borderIm = CD45.borderIm / max(CD45.im(:));
+CD45.borderIm = 1 - CD45.borderIm;
+CD45.borderIm(CD45.waveletWatershed == 0) = 1;
+CD45.activeContSeparate = activecontour(CD45.borderIm, CD45.wavelet);
+CD45.segments = (CD45.activeContSeparate>0) & (CD45.activeCont>0);
 
-PSMA.processedIm = PSMA.processedIm - min(PSMA.processedIm(:));
-PSMA.processedIm = PSMA.processedIm / max(PSMA.processedIm(:))*256;
+%% It saves the result after the wavelet so you can use the results later
+%save('SampleName_all_data','-v7.3');
 
-waveletSteps = 1005;
-waveletBorder = 50;
-partsI = ceil(size(PSMA.im,1)/waveletSteps);
-partsJ = ceil(size(PSMA.im,2)/waveletSteps);
-activeCont = cell(partsI,partsJ);
-waveletWatershed = activeCont;
-borderIm = activeCont;
-activeContSeparate = activeCont;
-segments = activeCont;
-warning('Careful! Here I am using DAPI instead of PSMA in the next line!');
-PSMAwavelet = PSMA.wavelet;
-PSMAwaveletWatershed = DAPI.waveletWatershed;
-PSMAim = PSMA.im;
-PSMAprocessedIm = PSMA.processedIm;
-parfor i = 1:partsI
-    for j = 1:partsJ
-        wavelet = PSMAwavelet(max(1,waveletSteps*(i-1)-waveletBorder+1):min(waveletSteps*i+waveletBorder,size(PSMAim,1)),max(1,waveletSteps*(j-1)-waveletBorder+1):min(waveletSteps*j+waveletBorder,size(PSMAim,2)));
-        imToProcess = PSMAprocessedIm(max(1,waveletSteps*(i-1)-waveletBorder+1):min(waveletSteps*i+waveletBorder,size(PSMAim,1)),max(1,waveletSteps*(j-1)-waveletBorder+1):min(waveletSteps*j+waveletBorder,size(PSMAim,2)));
-        waveletWatershed{i,j} = PSMAwaveletWatershed(max(1,waveletSteps*(i-1)-waveletBorder+1):min(waveletSteps*i+waveletBorder,size(PSMAim,1)),max(1,waveletSteps*(j-1)-waveletBorder+1):min(waveletSteps*j+waveletBorder,size(PSMAim,2)));
-        activeCont{i,j} = activecontour(imToProcess,wavelet,1000);
-        waveletWatershed{i,j} = uint16(watershed(1-(wavelet>0)));
-        borderIm{i,j} = imToProcess - min(imToProcess(:));
-        borderIm{i,j} = borderIm{i,j} / max(imToProcess(:));
-        borderIm{i,j} = 1 - borderIm{i,j};
-        borderIm{i,j}(waveletWatershed{i,j} == 0) = 1;
-        activeContSeparate{i,j} = activecontour(borderIm{i,j}, wavelet,1000);
-        segments{i,j} = (activeContSeparate{i,j}>0) & (activeCont{i,j}>0);
-    end
-end
+% load('SampleName_all_data');
 
-PSMA.activeCont = cutBorders(activeCont,waveletBorder);
-PSMA.waveletWatershed = cutBorders(waveletWatershed,waveletBorder);
-PSMA.borderIm = cutBorders(borderIm,waveletBorder);
-PSMA.activeContSeparate = cutBorders(activeContSeparate,waveletBorder);
-PSMA.segments = cutBorders(segments,waveletBorder);
-se = [0 1 0; 1 1 1; 0 1 0];
-tmp = imfilter(double(PSMA.segments),se);
-tmp = (PSMA.segments & tmp>2);
-PSMA.segments = tmp;
-
-% % % CD45.activeCont = activecontour(CD45.im,CD45.wavelet);
-% % % CD45.waveletWatershed = watershed(1-(CD45.wavelet>0));
-% % % CD45.borderIm = CD45.im - min(CD45.im(:));
-% % % CD45.borderIm = CD45.borderIm / max(CD45.im(:));
-% % % CD45.borderIm = 1 - CD45.borderIm;
-% % % CD45.borderIm(CD45.waveletWatershed == 0) = 1;
-% % % CD45.activeContSeparate = activecontour(CD45.borderIm, CD45.wavelet);
-% % % CD45.segments = (CD45.activeContSeparate>0) & (CD45.activeCont>0);
-
-save('167_all_data','-v7.3');
-
-% load('107_all_data');
-
+%% This part uses the old method for finding the spots for CD45.
+%% I added this to make sure we don't get too many FPs.
 CD45.filter = generateFilter([40,40],5,3);
 CD45.filtered = conv2(double(CD45.im),CD45.filter,'same');
 CD45.filteredHist = hist(CD45.filtered(:), min(min(CD45.filtered)):histJump:max(max(CD45.filtered)));
-[~, preThre, ~, ~] = cutFirstHistMode(CD45.filtered(3000:3400,3000:3400),0);
-[CD45.thre,~] = thresh_tool_v2(CD45.filtered(3000:3400,3000:3400), CD45.origIm(3000:3400,3000:3400),[],preThre);
+[~, preThre, ~, ~] = cutFirstHistMode(CD45.filtered,0);
+[CD45.thre,~] = thresh_tool_v2(CD45.filtered, CD45.origIm,[],preThre);
 CD45.binary = (CD45.filtered > CD45.thre);
-% % % CD45.segments = CD45.segments | CD45.binary;
-CD45.segments = CD45.binary;
+CD45.segments = CD45.segments | CD45.binary;
 
 
-
+%% Removing unnecessary variables
 PSMA.activeCont = [];
 PSMA.waveletWatershed = [];
 PSMA.borderIm = [];
@@ -272,8 +175,9 @@ CD45.borderIm = [];
 CD45.activeContSeparate = [];
 CD45.brightness = [];
 
-save('167_all_data_short','-v7.3');
-%load('107_all_data_short');
+%% Saving the lighter version of the variables
+%save('SampleName_essential_data_short','-v7.3');
+%load('SampleName_essential_data_short');
 
 h1 = figure;
 AX(1) = subplot(3,3,1);
@@ -303,7 +207,7 @@ title('CD45 original Input');
 
 
 
-PSMA.reginoprops = regionprops(logical(PSMA.segments),'Area','BoundingBox','PixelIdxList','MajorAxisLength','MinorAxisLength','PixelList','PixelIdxList','Eccentricity');
+PSMA.reginoprops = regionprops(logical(PSMA.segments),'Area','BoundingBox','PixelIdxList','MajorAxisLength','MinorAxisLength','PixelList','PixelIdxList');
 for i = 1:length(PSMA.reginoprops)
     if PSMA.reginoprops(i).Area > PSMA.maxArea
         PSMA.segments(PSMA.reginoprops(i).PixelIdxList) = 0;
@@ -313,10 +217,6 @@ for i = 1:length(PSMA.reginoprops)
         PSMA.segments(PSMA.reginoprops(i).PixelIdxList) = 0;
     elseif PSMA.reginoprops(i).MinorAxisLength < PSMA.minAxisLength
         PSMA.segments(PSMA.reginoprops(i).PixelIdxList) = 0;
-    elseif PSMA.reginoprops(i).MinorAxisLength*2<PSMA.reginoprops(i).MajorAxisLength
-        PSMA.segments(PSMA.reginoprops(i).PixelIdxList) = 0;
-    elseif PSMA.reginoprops(i).Eccentricity > 0.4
-        PSMA.binary(PSMA.reginoprops(i).PixelIdxList) = 0;
     end
 end
 AX(4) = subplot(3,3,4);
@@ -339,7 +239,7 @@ BW_tmp = poly2mask(xInd(K_PSMA), yInd(K_PSMA), size(PSMA.segments,1),size(PSMA.s
 pointsMask = BW_tmp;
 
 
-DAPI.reginoprops = regionprops(DAPI.segments,'Area','BoundingBox','PixelIdxList','MajorAxisLength','MinorAxisLength','PixelList','PixelIdxList','Eccentricity');
+DAPI.reginoprops = regionprops(DAPI.segments,'Area','BoundingBox','PixelIdxList','MajorAxisLength','MinorAxisLength','PixelList','PixelIdxList');
 for i = 1:length(DAPI.reginoprops)
     if DAPI.reginoprops(i).Area > DAPI.maxArea
         DAPI.segments(DAPI.reginoprops(i).PixelIdxList) = 0;
@@ -349,8 +249,6 @@ for i = 1:length(DAPI.reginoprops)
         DAPI.segments(DAPI.reginoprops(i).PixelIdxList) = 0;
     elseif DAPI.reginoprops(i).MinorAxisLength < DAPI.minAxisLength
         DAPI.segments(DAPI.reginoprops(i).PixelIdxList) = 0;
-    elseif DAPI.reginoprops(i).Eccentricity > 0.4
-        DAPI.binary(DAPI.reginoprops(i).PixelIdxList) = 0;
     end
 end
 
@@ -468,7 +366,7 @@ plot(tmp(1,:),tmp(2,:),'Marker','*','Color','r','lineStyle','none');
 title('Detected CTCs (Red Marks)');
 
 linkaxes(AX,'xy');
-keyboard;
+
 
 AX(10) =figure;
 imshow(out,[]);
@@ -648,4 +546,4 @@ for i = 1:length(x)
     
 end
 
-%end
+end

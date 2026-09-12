@@ -5,6 +5,7 @@ close all
 clc
 
 %% Input images folders
+% EDIT: hardcoded path below is specific to the original author's local machine -- update before running
 c3.imDir = 'E:\MATLAB\CTC\Alex Dropbox\63xNewFilter\3D\9740-103-02-1822-5846';
 c3.imageNames = dir(fullfile(c3.imDir,'*c3*.tif'));
 c4.imDir = c3.imDir;

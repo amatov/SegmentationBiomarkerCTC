@@ -45,6 +45,7 @@ histJump = 1;
 % CD45.im = imread(fullfile(inputPath,'9740-101Ficoll02whole_c3_ORG.tif'));
 
 inputPath = '';
+% EDIT: hardcoded path below is specific to the original author's local machine -- update before running
 inputPath = 'E:\MATLAB\CTC\Alex Dropbox\10xNewFilter\Flash Camera\10x';
 
 %% Reads the files and crops them

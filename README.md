@@ -9,19 +9,18 @@ Runtime requirement of the compiled executables.
 
 - **`Coverslip/`** -- the main analysis code, covering both coverslip and
   Gedi-chip samples:
-  - `high_resolution/` -- `codeCTC.zip` (packaged high-resolution
-    analysis) and `WaveletSeedingWatershedActiveContour/` (the
+  - `high_resolution/` -- `WaveletSeedingWatershedActiveContour/` (the
     wavelet-seeding + active-contour + watershed segmentation algorithm).
   - `low_resolution/` -- `find_ctc.exe` / `optimal_ctc.exe` (compiled
-    low-resolution whole-slide analysis), `genOptimalCTC2.m`, the `.ini`
-    configuration files (covering both coverslip and Gedi-chip datasets),
-    and `run_optimal_detection_9283.bat`.
+    low-resolution whole-slide analysis), `codeCTC.zip`, `genOptimalCTC2.m`,
+    the `.ini` configuration files (covering both coverslip and Gedi-chip
+    datasets), and `run_optimal_detection_9283.bat`.
   - `Segmentation3D/` -- 3D segmentation code.
   - `spotDetection/` -- bright-spot detection via stationary wavelet
     transform.
   - The Matlab scripts at this folder's top level (`CTCQ_*.m`,
     `Coverslips_new_code.m`) are the high-resolution cropped-image
-    analysis referenced above.
+    analysis.
 - **`additional_tools/`** -- general-purpose tools used across the
   project, not specific to coverslip/chip samples:
   - `SVM/` -- Support Vector Machine classification code.

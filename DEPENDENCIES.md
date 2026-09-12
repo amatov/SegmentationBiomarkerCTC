@@ -14,7 +14,7 @@ Also MATLAB-Compiler-based binaries; same MCR requirement applies.
 `awt.mexw64` is a compiled MEX file built from `awt.cpp` -- to rebuild it
 from source on a different platform, use MATLAB's `mex` compiler.
 
-## `Coverslip/high_resolution/codeCTC.zip`
+## `Coverslip/low_resolution/codeCTC.zip`
 
 Packaged separately; see its own contents for build/runtime requirements
 once unzipped.

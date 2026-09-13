@@ -38,4 +38,4 @@ The patient blood samples analyzed were from clinical studies with IRB protocols
 
 Watch my CTC presentation, the second part of this seminar, at the University of Central Florida in 2013: https://youtu.be/kTYyltX9RFg?t=1564
 
-For detailed information, see: https://www.researchgate.net/publication/387438061_Microtubule_Regulation_in_Cancer_Cells
+For detailed information, see: https://www.frontiersin.org/journals/cell-and-developmental-biology/articles/10.3389/fcell.2025.1677302/full

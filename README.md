@@ -1,4 +1,4 @@
-## SegmentationBiomarkerCTC
+## Segmentation Biomarker CTC
 
 Algorithm for the segmentation of prostate-specific membrane antigen labeling in circulating tumor cells (CTCs) of metastatic patients I designed and partially implemented.
 

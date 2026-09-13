@@ -6,7 +6,7 @@ Algorithm for the segmentation of prostate-specific membrane antigen labeling in
 
 This repository covers segmentation of PSMA-labeled CTCs at two
 resolutions, plus a set of general-purpose supporting
-tools. See [DEPENDENCIES.md](DEPENDENCIES.md) for the MATLAB Compiler
+tools. See [DEPENDENCIES.md](DEPENDENCIES.md) for the Matlab Compiler
 Runtime requirement of the compiled executables.
 
 ## Repository contents

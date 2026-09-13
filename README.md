@@ -1,11 +1,11 @@
 ## SegmentationBiomarkerCTC
 
-Algorithm for the segmentation of prostate-specific membrane antigen labeling in ciruculating tumor cells of metastatic patients I designed and partially implemented.
+Algorithm for the segmentation of prostate-specific membrane antigen labeling in circulating tumor cells (CTCs) of metastatic patients I designed and partially implemented.
 
 ## Quick start
 
-This repository covers segmentation of PSMA-labeled circulating tumor
-cells (CTCs) at two resolutions, plus a set of general-purpose supporting
+This repository covers segmentation of PSMA-labeled CTCs at two
+resolutions, plus a set of general-purpose supporting
 tools. See [DEPENDENCIES.md](DEPENDENCIES.md) for the MATLAB Compiler
 Runtime requirement of the compiled executables.
 
